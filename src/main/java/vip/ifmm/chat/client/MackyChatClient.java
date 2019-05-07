@@ -14,6 +14,7 @@ import vip.ifmm.chat.protocol.packageProcess.PackageDecoder;
 import vip.ifmm.chat.protocol.packageProcess.PackageEncoder;
 import vip.ifmm.chat.protocol.packageProcess.Spliter;
 import vip.ifmm.chat.protocol.request.MessageRequest;
+import vip.ifmm.chat.server.util.LoginCheck;
 
 import java.util.Date;
 import java.util.Scanner;
@@ -54,13 +55,13 @@ public class MackyChatClient {
         connectServer(bootstrap, MAX_RETRY);
     }
 
-    private void connectServer(Bootstrap bootstrap, int retry){
+    private void connectServer(Bootstrap bootstrap, int retry) {
         bootstrap.connect(HOST, PORT).addListener(future -> {
-            if (future.isSuccess()){
+            if (future.isSuccess()) {
                 System.out.println(new Date() + ": 连接成功，启动控制台线程……");
                 Channel channel = ((ChannelFuture) future).channel();
                 consoleCharOpen(channel);
-            } else if (retry == 0){
+            } else if (retry == 0) {
                 System.out.println(String.format("重新连接%d次依旧失败，已放弃重新连接", MAX_RETRY));
             } else {
                 int currentTry = (MAX_RETRY - retry) + 1;
@@ -71,15 +72,17 @@ public class MackyChatClient {
         });
     }
 
-    private void consoleCharOpen(Channel channel){
+    private void consoleCharOpen(Channel channel) {
         new Thread(() -> {
-            while (!Thread.interrupted()){
-                System.out.println("输入信息：");
-                Scanner sc = new Scanner(System.in);
-                String line = sc.nextLine();
-                channel.writeAndFlush(new MessageRequest(line));
+            while (!Thread.interrupted()) {
+                if (LoginCheck.checkLogin(channel)) {
+                    System.out.println("输入信息：");
+                    Scanner sc = new Scanner(System.in);
+                    String line = sc.nextLine();
+                    channel.writeAndFlush(new MessageRequest(line));
+                }
             }
-        });
+        }).start();
     }
 
     public static void main(String[] args) {

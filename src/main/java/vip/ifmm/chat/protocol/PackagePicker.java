@@ -41,7 +41,7 @@ public class PackagePicker {
         serializerStore = new HashMap<>();
 
         packageStore.put(PackageCommandEnum.LOGIN_REQUEST.getCode(), LoginRequest.class);
-        packageStore.put(PackageCommandEnum.LOGIN_REQUEST.getCode(), LoginResponse.class);
+        packageStore.put(PackageCommandEnum.LOGIN_RESPONSE.getCode(), LoginResponse.class);
         packageStore.put(PackageCommandEnum.MESSAGE_REQUEST.getCode(), MessageRequest.class);
         packageStore.put(PackageCommandEnum.MESSAGE_RESPONSE.getCode(), MessageResponse.class);
 

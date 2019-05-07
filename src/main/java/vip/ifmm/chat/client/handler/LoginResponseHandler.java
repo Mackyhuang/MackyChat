@@ -19,7 +19,6 @@ public class LoginResponseHandler extends SimpleChannelInboundHandler<LoginRespo
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        System.out.println(1);
         // 创建登录对象
         LoginRequest loginRequestPacket = new LoginRequest();
         loginRequestPacket.setUserId(UUID.randomUUID().toString());
@@ -31,8 +30,12 @@ public class LoginResponseHandler extends SimpleChannelInboundHandler<LoginRespo
 
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, LoginResponse loginResponse) throws Exception {
-        System.out.println(new Date() + loginResponse.getReason());
-        LoginCheck.markLogin(channelHandlerContext.channel());
+        if (loginResponse.isSuccess()) {
+            System.out.println(new Date() + ": 登录成功");
+            LoginCheck.markLogin(channelHandlerContext.channel());
+        } else {
+            System.out.println(new Date() + ": 客户端登录失败：" + loginResponse.getReason());
+        }
     }
 
     @Override

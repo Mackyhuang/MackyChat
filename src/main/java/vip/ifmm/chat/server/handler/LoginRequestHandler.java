@@ -25,15 +25,16 @@ public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReques
         if (loginValid(loginRequest)){
             loginResponse.setSuccess(true);
             LoginCheck.markLogin(channelHandlerContext.channel());
+            System.out.println(LoginCheck.checkLogin(channelHandlerContext.channel()));
             loginResponse.setReason(String.format("%s 您已成功登录！", loginRequest.getUsername()));
-            System.out.println(new Date() + String.format("%d登录成功", loginRequest.getUsername()));
+            System.out.println(new Date() + String.format(": %s登录成功", loginRequest.getUsername()));
         }else {
             loginResponse.setSuccess(false);
             loginResponse.setReason(String.format("%s 请检查您的账号密码！", loginRequest.getUsername()));
-            System.out.println(new Date() + String.format("%d登录失败", loginRequest.getUsername()));
+            System.out.println(new Date() + String.format(": %s登录失败", loginRequest.getUsername()));
         }
 
-        channelHandlerContext.writeAndFlush(loginResponse);
+        channelHandlerContext.channel().writeAndFlush(loginResponse);
     }
 
     /**
