@@ -21,6 +21,7 @@ import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * 客户端
  * @author: mackyhuang
  * <p>email: mackyhuang@163.com <p>
  * <p>date: 2019/5/7 </p>

@@ -4,6 +4,7 @@ import vip.ifmm.chat.enums.PackageCommandEnum;
 import vip.ifmm.chat.protocol.Package;
 
 /**
+ * 登录请求包
  * @author: mackyhuang
  * <p>email: mackyhuang@163.com <p>
  * <p>date: 2019/5/7 </p>

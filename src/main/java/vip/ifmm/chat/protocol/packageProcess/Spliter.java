@@ -6,7 +6,7 @@ import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import vip.ifmm.chat.protocol.PackagePicker;
 
 /**
- * 基于长度域拆包器
+ * 基于长度域拆包器 处理粘包和半包问题
  * @author: mackyhuang
  * <p>email: mackyhuang@163.com <p>
  * <p>date: 2019/5/7 </p>

@@ -16,6 +16,10 @@ import java.util.Date;
  */
 public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginRequest> {
 
+    /**
+     * 登录验证流程
+     * @param loginRequest 登录请求包
+     */
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, LoginRequest loginRequest) throws Exception {
         System.out.println(String.format("收到%s的登录请求， 验证ing...", loginRequest.getUsername()));
@@ -39,7 +43,7 @@ public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReques
 
     /**
      * 登录用户验证的逻辑实现方法
-     * @param loginRequest
+     * @param loginRequest 登录请求包
      * @return
      */
     private boolean loginValid(LoginRequest loginRequest){

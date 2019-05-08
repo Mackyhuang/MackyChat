@@ -19,6 +19,7 @@ import vip.ifmm.chat.server.handler.VerifyHandler;
 import java.util.Date;
 
 /**
+ * 服务端
  * @author: mackyhuang
  * <p>email: mackyhuang@163.com <p>
  * <p>date: 2019/5/7 </p>
