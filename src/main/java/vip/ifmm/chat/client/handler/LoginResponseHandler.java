@@ -5,6 +5,8 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import vip.ifmm.chat.protocol.request.LoginRequest;
 import vip.ifmm.chat.protocol.response.LoginResponse;
 import vip.ifmm.chat.server.util.LoginCheck;
+import vip.ifmm.chat.server.util.Session;
+import vip.ifmm.chat.server.util.SessionCheck;
 
 import java.util.Date;
 import java.util.UUID;
@@ -18,21 +20,12 @@ import java.util.UUID;
 public class LoginResponseHandler extends SimpleChannelInboundHandler<LoginResponse> {
 
     @Override
-    public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        // 创建登录对象
-        LoginRequest loginRequestPacket = new LoginRequest();
-        loginRequestPacket.setUserId(UUID.randomUUID().toString());
-        loginRequestPacket.setUsername("macky");
-        loginRequestPacket.setPassword("0000");
-
-        ctx.channel().writeAndFlush(loginRequestPacket);
-    }
-
-    @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, LoginResponse loginResponse) throws Exception {
+        String userId = loginResponse.getUserId();
+        String username = loginResponse.getUserName();
         if (loginResponse.isSuccess()) {
-            System.out.println(new Date() + ": 登录成功");
-            LoginCheck.markLogin(channelHandlerContext.channel());
+            System.out.println(new Date() + ": 登录成功, 您的用户标识为：" + userId);
+            SessionCheck.markLogin(new Session(userId, username), channelHandlerContext.channel());
         } else {
             System.out.println(new Date() + ": 客户端登录失败：" + loginResponse.getReason());
         }

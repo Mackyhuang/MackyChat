@@ -1,9 +1,12 @@
 package vip.ifmm.chat.server.handler;
 
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import vip.ifmm.chat.protocol.request.MessageRequest;
 import vip.ifmm.chat.protocol.response.MessageResponse;
+import vip.ifmm.chat.server.util.Session;
+import vip.ifmm.chat.server.util.SessionCheck;
 
 import java.util.Date;
 
@@ -20,10 +23,21 @@ public class MessageRequestHandler extends SimpleChannelInboundHandler<MessageRe
      */
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, MessageRequest messageRequest) throws Exception {
+        //当前发送消息端的session信息
+        Session session = SessionCheck.getSession(channelHandlerContext.channel());
+        //构造数据包
         MessageResponse messageResponse = new MessageResponse();
-        System.out.println(new Date() + ": 收到客户端消息: " + messageRequest.getMessage());
-        messageResponse.setMessage("服务端回复[" + messageRequest.getMessage() + "]");
+        messageResponse.setSourceUserId(session.getUserId());
+        messageResponse.setSourceUsername(session.getUsername());
+        messageResponse.setMessage(messageRequest.getMessage());
+        //接收端的信道
+        Channel destChannel = SessionCheck.getChannel(messageRequest.getDestUserId());
 
-        channelHandlerContext.channel().writeAndFlush(messageResponse);
+        if (destChannel != null && SessionCheck.checkLogin(destChannel)){
+            destChannel.writeAndFlush(messageResponse);
+        }else {
+            System.err.println("[" + messageRequest.getDestUserId() + "] 不在线，发送失败!");
+        }
+
     }
 }

@@ -1,6 +1,7 @@
 package vip.ifmm.chat.enums;
 
 import io.netty.util.AttributeKey;
+import vip.ifmm.chat.server.util.Session;
 
 /**
  * 用于给channel添加attr标识
@@ -11,4 +12,6 @@ import io.netty.util.AttributeKey;
 public interface Attributes {
     //登录标识
     AttributeKey<Boolean> LOGIN_FLAG = AttributeKey.newInstance("login");
+    //会话标识
+    AttributeKey<Session> SESSION = AttributeKey.newInstance("session");
 }

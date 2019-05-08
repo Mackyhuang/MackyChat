@@ -15,8 +15,11 @@ import vip.ifmm.chat.protocol.packageProcess.Spliter;
 import vip.ifmm.chat.server.handler.LoginRequestHandler;
 import vip.ifmm.chat.server.handler.MessageRequestHandler;
 import vip.ifmm.chat.server.handler.VerifyHandler;
+import vip.ifmm.chat.server.util.SessionCheck;
 
 import java.util.Date;
+import java.util.Iterator;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 服务端
@@ -51,6 +54,7 @@ public class MackyChatServer {
                     }
                 });
         bindPort(bootstrap);
+        onlineCheck();
     }
 
     private void bindPort(ServerBootstrap bootstrap){
@@ -61,6 +65,23 @@ public class MackyChatServer {
                 System.err.println("端口[" + PORT + "]绑定失败!");
             }
         });
+    }
+
+    private void onlineCheck(){
+            new Thread(() -> {
+                while (true){
+                    System.out.println(new Date() + "- 在线用户：");
+                    Iterator<String> iterator = SessionCheck.userChannelMap.keySet().iterator();
+                    while (iterator.hasNext()){
+                        System.out.println(String.format("[%s] - ", iterator.next()));
+                    }
+                    try {
+                        Thread.sleep(10000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
     }
 
     public static void main(String[] args) {

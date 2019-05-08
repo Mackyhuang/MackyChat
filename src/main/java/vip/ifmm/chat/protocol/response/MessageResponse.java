@@ -11,14 +11,36 @@ import vip.ifmm.chat.protocol.Package;
  */
 public class MessageResponse extends Package {
 
+    private String sourceUserId;
+
+    private String sourceUsername;
+
     private String message;
 
-    public MessageResponse(String message) {
+    public MessageResponse(String sourceUserId, String sourceUsername, String message) {
+        this.sourceUserId = sourceUserId;
+        this.sourceUsername = sourceUsername;
         this.message = message;
     }
 
     public MessageResponse() {
 
+    }
+
+    public String getSourceUserId() {
+        return sourceUserId;
+    }
+
+    public void setSourceUserId(String sourceUserId) {
+        this.sourceUserId = sourceUserId;
+    }
+
+    public String getSourceUsername() {
+        return sourceUsername;
+    }
+
+    public void setSourceUsername(String sourceUsername) {
+        this.sourceUsername = sourceUsername;
     }
 
     public String getMessage() {

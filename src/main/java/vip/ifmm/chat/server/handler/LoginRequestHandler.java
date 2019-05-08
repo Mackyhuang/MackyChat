@@ -5,8 +5,11 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import vip.ifmm.chat.protocol.request.LoginRequest;
 import vip.ifmm.chat.protocol.response.LoginResponse;
 import vip.ifmm.chat.server.util.LoginCheck;
+import vip.ifmm.chat.server.util.Session;
+import vip.ifmm.chat.server.util.SessionCheck;
 
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * 登录请求的处理器
@@ -27,10 +30,13 @@ public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReques
         LoginResponse loginResponse = new LoginResponse();
 
         if (loginValid(loginRequest)){
+            //标识Sessin
+            String userId = UUID.randomUUID().toString().split("-")[0];
+            SessionCheck.markLogin(new Session(userId, loginRequest.getUsername()), channelHandlerContext.channel());
+            //填充响应信息
             loginResponse.setSuccess(true);
-            LoginCheck.markLogin(channelHandlerContext.channel());
-            System.out.println(LoginCheck.checkLogin(channelHandlerContext.channel()));
             loginResponse.setReason(String.format("%s 您已成功登录！", loginRequest.getUsername()));
+            loginResponse.setUserId(userId);
             System.out.println(new Date() + String.format(": %s登录成功", loginRequest.getUsername()));
         }else {
             loginResponse.setSuccess(false);
@@ -48,5 +54,10 @@ public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReques
      */
     private boolean loginValid(LoginRequest loginRequest){
         return true;
+    }
+
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        SessionCheck.withdrawLogin(ctx.channel());
     }
 }

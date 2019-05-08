@@ -11,10 +11,34 @@ import vip.ifmm.chat.protocol.Package;
  */
 public class MessageRequest extends Package {
 
+    private String destUserId;
+
+    private String destUsername;
+
     private String message;
 
-    public MessageRequest(String message) {
+    public MessageRequest() {
+    }
+
+    public MessageRequest(String destUserId, String message) {
+        this.destUserId = destUserId;
         this.message = message;
+    }
+
+    public String getDestUserId() {
+        return destUserId;
+    }
+
+    public void setDestUserId(String destUserId) {
+        this.destUserId = destUserId;
+    }
+
+    public String getDestUsername() {
+        return destUsername;
+    }
+
+    public void setDestUsername(String destUsername) {
+        this.destUsername = destUsername;
     }
 
     public String getMessage() {

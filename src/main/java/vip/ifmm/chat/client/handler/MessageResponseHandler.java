@@ -12,6 +12,9 @@ import vip.ifmm.chat.protocol.response.MessageResponse;
 public class MessageResponseHandler extends SimpleChannelInboundHandler<MessageResponse> {
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, MessageResponse messageResponse) throws Exception {
-        System.out.println("客户端收到服务端的回执：" + messageResponse.getMessage());
+        String sourceUserId = messageResponse.getSourceUserId();
+        String sourceUsername = messageResponse.getSourceUsername();
+        String message = messageResponse.getMessage();
+        System.out.println(String.format("[%s] - [%s] : \n %s", sourceUserId, sourceUsername, message));
     }
 }

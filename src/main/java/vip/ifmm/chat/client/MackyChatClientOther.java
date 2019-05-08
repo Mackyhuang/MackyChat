@@ -15,7 +15,6 @@ import vip.ifmm.chat.protocol.packageProcess.PackageEncoder;
 import vip.ifmm.chat.protocol.packageProcess.Spliter;
 import vip.ifmm.chat.protocol.request.LoginRequest;
 import vip.ifmm.chat.protocol.request.MessageRequest;
-import vip.ifmm.chat.server.util.LoginCheck;
 import vip.ifmm.chat.server.util.SessionCheck;
 
 import java.util.Date;
@@ -28,7 +27,7 @@ import java.util.concurrent.TimeUnit;
  * <p>email: mackyhuang@163.com <p>
  * <p>date: 2019/5/7 </p>
  */
-public class MackyChatClient {
+public class MackyChatClientOther {
     //重连次数
     private static final int MAX_RETRY = 5;
     //服务器IP地址
@@ -105,6 +104,6 @@ public class MackyChatClient {
     }
 
     public static void main(String[] args) {
-        new MackyChatClient().mackyChatClient();
+        new MackyChatClientOther().mackyChatClient();
     }
 }

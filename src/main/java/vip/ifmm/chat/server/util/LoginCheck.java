@@ -4,6 +4,7 @@ import io.netty.channel.Channel;
 import io.netty.util.Attribute;
 import vip.ifmm.chat.enums.Attributes;
 
+@Deprecated
 public class LoginCheck {
 
     public static void markLogin(Channel channel) {
