@@ -10,6 +10,8 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import vip.ifmm.chat.client.handler.LoginResponseHandler;
 import vip.ifmm.chat.client.handler.MessageResponseHandler;
+import vip.ifmm.chat.client.instruction.InstructionSelector;
+import vip.ifmm.chat.client.instruction.impl.LoginInstruction;
 import vip.ifmm.chat.protocol.packageProcess.PackageDecoder;
 import vip.ifmm.chat.protocol.packageProcess.PackageEncoder;
 import vip.ifmm.chat.protocol.packageProcess.Spliter;
@@ -63,7 +65,7 @@ public class MackyChatClient {
             if (future.isSuccess()) {
                 System.out.println(new Date() + ": 连接成功，启动控制台线程……");
                 Channel channel = ((ChannelFuture) future).channel();
-                consoleCharOpen(channel);
+                consoleChatOpen(channel);
             } else if (retry == 0) {
                 System.out.println(String.format("重新连接%d次依旧失败，已放弃重新连接", MAX_RETRY));
             } else {
@@ -75,30 +77,20 @@ public class MackyChatClient {
         });
     }
 
-    private void consoleCharOpen(Channel channel) {
-        Scanner sc = new Scanner(System.in);
-        LoginRequest loginRequest = new LoginRequest();
+    /**
+     * 客户端控制台输入流程控制
+     */
+    private void consoleChatOpen(Channel channel) {
+        LoginInstruction loginInstruction = new LoginInstruction();
+        InstructionSelector instructionSelector = new InstructionSelector();
+        Scanner scanner = new Scanner(System.in);
 
         new Thread(() -> {
             while (!Thread.interrupted()) {
                 if (!SessionCheck.checkLogin(channel)) {
-                    System.out.println("输入用户名：");
-                    String username = sc.nextLine();
-                    loginRequest.setUsername(username);
-                    //现在服务端没有验证逻辑
-                    loginRequest.setPassword("");
-
-                    channel.writeAndFlush(loginRequest);
-
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    loginInstruction.exec(scanner, channel);
                 }else {
-                    String destUserId = sc.next();
-                    String message = sc.next();
-                    channel.writeAndFlush(new MessageRequest(destUserId, message));
+                    instructionSelector.exec(scanner, channel);
                 }
             }
         }).start();
