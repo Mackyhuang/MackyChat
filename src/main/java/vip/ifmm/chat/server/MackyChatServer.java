@@ -12,9 +12,7 @@ import io.netty.util.concurrent.FutureListener;
 import vip.ifmm.chat.protocol.packageProcess.PackageDecoder;
 import vip.ifmm.chat.protocol.packageProcess.PackageEncoder;
 import vip.ifmm.chat.protocol.packageProcess.Spliter;
-import vip.ifmm.chat.server.handler.LoginRequestHandler;
-import vip.ifmm.chat.server.handler.MessageRequestHandler;
-import vip.ifmm.chat.server.handler.VerifyHandler;
+import vip.ifmm.chat.server.handler.*;
 import vip.ifmm.chat.server.util.SessionCheck;
 
 import java.util.Date;
@@ -50,6 +48,8 @@ public class MackyChatServer {
                         channel.pipeline().addLast(new LoginRequestHandler());
                         channel.pipeline().addLast(new VerifyHandler());
                         channel.pipeline().addLast(new MessageRequestHandler());
+                        channel.pipeline().addLast(new GroupRequestHandler());
+                        channel.pipeline().addLast(new LogoutRequestHandler());
                         channel.pipeline().addLast(new PackageEncoder());
                     }
                 });

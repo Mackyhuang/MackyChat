@@ -7,6 +7,7 @@ import vip.ifmm.chat.protocol.response.LoginResponse;
 import vip.ifmm.chat.server.util.LoginCheck;
 import vip.ifmm.chat.server.util.Session;
 import vip.ifmm.chat.server.util.SessionCheck;
+import vip.ifmm.chat.util.SeqUtil;
 
 import java.util.Date;
 import java.util.UUID;
@@ -31,7 +32,7 @@ public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReques
 
         if (loginValid(loginRequest)){
             //标识Sessin
-            String userId = UUID.randomUUID().toString().split("-")[0];
+            String userId = SeqUtil.getSeq();
             SessionCheck.markLogin(new Session(userId, loginRequest.getUsername()), channelHandlerContext.channel());
             //填充响应信息
             loginResponse.setSuccess(true);

@@ -20,7 +20,7 @@ public class GroupInstruction implements CommonInstruction {
         GroupRequest groupRequest = new GroupRequest();
 
         System.out.print("【拉人群聊】输入 userId 列表，userId 之间英文逗号隔开：");
-        String userIds = scanner.next();
+        String userIds = scanner.nextLine();
         groupRequest.setUserIdList(Arrays.asList(userIds.split(USER_ID_SPLITER)));
         channel.writeAndFlush(groupRequest);
     }
