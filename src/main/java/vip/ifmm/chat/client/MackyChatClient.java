@@ -8,9 +8,7 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import vip.ifmm.chat.client.handler.GroupResponseHandler;
-import vip.ifmm.chat.client.handler.LoginResponseHandler;
-import vip.ifmm.chat.client.handler.MessageResponseHandler;
+import vip.ifmm.chat.client.handler.*;
 import vip.ifmm.chat.client.instruction.InstructionSelector;
 import vip.ifmm.chat.client.instruction.impl.LoginInstruction;
 import vip.ifmm.chat.protocol.packageProcess.PackageDecoder;
@@ -56,7 +54,10 @@ public class MackyChatClient {
                         channel.pipeline().addLast(new LoginResponseHandler());
                         channel.pipeline().addLast(new MessageResponseHandler());
                         channel.pipeline().addLast(new GroupResponseHandler());
-                        channel.pipeline().addLast(new LoginResponseHandler());
+                        channel.pipeline().addLast(new JoinResponseHandler());
+                        channel.pipeline().addLast(new QuitResponseHandler());
+                        channel.pipeline().addLast(new ListResponseHandler());
+                        channel.pipeline().addLast(new LogoutResponseHandler());
                         channel.pipeline().addLast(new PackageEncoder());
                     }
                 });

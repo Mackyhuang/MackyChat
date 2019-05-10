@@ -9,7 +9,13 @@ public enum PackageCommandEnum {
     LOGOUT_REQUEST(5),
     LOGOUT_RESPONSE(6),
     GROUP_REQUEST(7),
-    GROUP_RESPONSE(8);
+    GROUP_RESPONSE(8),
+    JOIN_REQUEST(9),
+    JOIN_RESPONSE(10),
+    QUIT_REQUEST(11),
+    QUIT_RESPONSE(12),
+    LIST_REQUEST(13),
+    LIST_RESPONSE(14);
 
     Byte code;
 

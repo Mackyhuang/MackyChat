@@ -3,14 +3,8 @@ package vip.ifmm.chat.protocol;
 import io.netty.buffer.ByteBuf;
 import vip.ifmm.chat.enums.PackageCommandEnum;
 import vip.ifmm.chat.enums.SerializationAlgorithmEnum;
-import vip.ifmm.chat.protocol.request.GroupRequest;
-import vip.ifmm.chat.protocol.request.LoginRequest;
-import vip.ifmm.chat.protocol.request.LogoutRequest;
-import vip.ifmm.chat.protocol.request.MessageRequest;
-import vip.ifmm.chat.protocol.response.GroupResponse;
-import vip.ifmm.chat.protocol.response.LoginResponse;
-import vip.ifmm.chat.protocol.response.LogoutResponse;
-import vip.ifmm.chat.protocol.response.MessageResponse;
+import vip.ifmm.chat.protocol.request.*;
+import vip.ifmm.chat.protocol.response.*;
 import vip.ifmm.chat.serializer.Serializer;
 import vip.ifmm.chat.serializer.impl.JsonSerializer;
 
@@ -52,6 +46,12 @@ public class PackagePicker {
         packageStore.put(PackageCommandEnum.LOGOUT_RESPONSE.getCode(), LogoutResponse.class);
         packageStore.put(PackageCommandEnum.GROUP_REQUEST.getCode(), GroupRequest.class);
         packageStore.put(PackageCommandEnum.GROUP_RESPONSE.getCode(), GroupResponse.class);
+        packageStore.put(PackageCommandEnum.JOIN_REQUEST.getCode(), JoinRequest.class);
+        packageStore.put(PackageCommandEnum.JOIN_RESPONSE.getCode(), JoinResponse.class);
+        packageStore.put(PackageCommandEnum.QUIT_REQUEST.getCode(), QuitRequest.class);
+        packageStore.put(PackageCommandEnum.QUIT_RESPONSE.getCode(), QuitResponse.class);
+        packageStore.put(PackageCommandEnum.LIST_REQUEST.getCode(), ListRequest.class);
+        packageStore.put(PackageCommandEnum.LIST_RESPONSE.getCode(), ListResponse.class);
 
         Serializer jsonSerializer = new JsonSerializer();
         serializerStore.put(SerializationAlgorithmEnum.JSON_SERIALIZER.getCode(), jsonSerializer);

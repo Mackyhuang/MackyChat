@@ -41,7 +41,8 @@ public class GroupRequestHandler extends SimpleChannelInboundHandler<GroupReques
 
         //群组构建响应包
         GroupResponse groupResponse = new GroupResponse();
-        groupResponse.setGroupId(SeqUtil.getSeq());
+        String groupId = SeqUtil.getSeq();
+        groupResponse.setGroupId(groupId);
         groupResponse.setSuccess(true);
         groupResponse.setUsernameList(usernameList);
 
@@ -49,5 +50,8 @@ public class GroupRequestHandler extends SimpleChannelInboundHandler<GroupReques
 
         System.out.print("群创建成功，id 为[" + groupResponse.getGroupId() + "], ");
         System.out.println("群里面有：" + groupResponse.getUsernameList());
+
+        //将这个群组存入系统群组map
+        SessionCheck.markGroup(groupId, channelGroup);
     }
 }

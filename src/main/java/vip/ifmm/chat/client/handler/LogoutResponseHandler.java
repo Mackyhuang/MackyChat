@@ -14,5 +14,6 @@ public class LogoutResponseHandler extends SimpleChannelInboundHandler<LogoutRes
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, LogoutResponse logoutResponse) throws Exception {
         SessionCheck.withdrawLogin(channelHandlerContext.channel());
+        System.out.println("用户注销成功！");
     }
 }

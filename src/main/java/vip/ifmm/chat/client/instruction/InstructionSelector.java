@@ -1,10 +1,7 @@
 package vip.ifmm.chat.client.instruction;
 
 import io.netty.channel.Channel;
-import vip.ifmm.chat.client.instruction.impl.GroupInstruction;
-import vip.ifmm.chat.client.instruction.impl.LoginInstruction;
-import vip.ifmm.chat.client.instruction.impl.LogoutInstruction;
-import vip.ifmm.chat.client.instruction.impl.MessageInstruction;
+import vip.ifmm.chat.client.instruction.impl.*;
 import vip.ifmm.chat.server.util.SessionCheck;
 
 import java.util.HashMap;
@@ -26,6 +23,9 @@ public class InstructionSelector implements CommonInstruction{
         instructionMap.put("logout", new LogoutInstruction());
         instructionMap.put("private", new MessageInstruction());
         instructionMap.put("group", new GroupInstruction());
+        instructionMap.put("join", new JoinInstruction());
+        instructionMap.put("quit", new QuitInstruction());
+        instructionMap.put("list", new ListInstruction());
     }
 
     @Override

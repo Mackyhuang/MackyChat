@@ -1,6 +1,7 @@
 package vip.ifmm.chat.server.util;
 
 import io.netty.channel.Channel;
+import io.netty.channel.group.ChannelGroup;
 import vip.ifmm.chat.enums.Attributes;
 
 import java.util.Date;
@@ -17,8 +18,8 @@ public class SessionCheck {
 
     //用户标识和信道的关系映射
     public static final Map<String, Channel> userChannelMap = new ConcurrentHashMap<>();
-
-
+    //群组的id与信道组的映射关系
+    public static final Map<String, ChannelGroup> channelGroupMap = new ConcurrentHashMap<>();
 
     /**
      * 登录成功修改标识
@@ -61,5 +62,21 @@ public class SessionCheck {
      */
     public static Channel getChannel(String userId){
         return userChannelMap.get(userId);
+    }
+
+    /**
+     * 将群组存进映射器
+     * @param groupId
+     * @param channelGroup
+     */
+    public static void markGroup(String groupId, ChannelGroup channelGroup){
+        channelGroupMap.put(groupId, channelGroup);
+    }
+
+    /**
+     * 从群组map中获取 groupId对应的那个
+     */
+    public static ChannelGroup getChannelGroup(String groupId){
+        return channelGroupMap.get(groupId);
     }
 }
