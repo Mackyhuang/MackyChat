@@ -1,5 +1,6 @@
 package vip.ifmm.chat.server.handler;
 
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
@@ -12,7 +13,14 @@ import vip.ifmm.chat.server.util.SessionCheck;
  * <p>email: mackyhuang@163.com <p>
  * <p>date: 2019/5/10 </p>
  */
+@ChannelHandler.Sharable
 public class QuitRequestHandler extends SimpleChannelInboundHandler<QuitRequest> {
+
+    public static final QuitRequestHandler INSTANCE = new QuitRequestHandler();
+
+    private QuitRequestHandler() {
+    }
+
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, QuitRequest quitRequest) throws Exception {
         //获取群聊对应的channelGroup并且相处当前channel

@@ -1,5 +1,6 @@
 package vip.ifmm.chat.server.handler;
 
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
@@ -12,7 +13,14 @@ import vip.ifmm.chat.server.util.SessionCheck;
  * <p>email: mackyhuang@163.com <p>
  * <p>date: 2019/5/10 </p>
  */
+@ChannelHandler.Sharable
 public class JoinRequestHandler extends SimpleChannelInboundHandler<JoinRequest> {
+
+    public static final JoinRequestHandler INSTANCE = new JoinRequestHandler();
+
+    private JoinRequestHandler() {
+    }
+
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, JoinRequest joinRequest) throws Exception {
         //获取groupId以及它对应的 channelGroup

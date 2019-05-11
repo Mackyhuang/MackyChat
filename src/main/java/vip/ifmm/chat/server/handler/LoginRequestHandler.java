@@ -1,5 +1,6 @@
 package vip.ifmm.chat.server.handler;
 
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import vip.ifmm.chat.protocol.request.LoginRequest;
@@ -18,7 +19,13 @@ import java.util.UUID;
  * <p>email: mackyhuang@163.com <p>
  * <p>date: 2019/5/7 </p>
  */
+@ChannelHandler.Sharable
 public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginRequest> {
+
+    public static final LoginRequestHandler INSTANCE = new LoginRequestHandler();
+
+    private LoginRequestHandler() {
+    }
 
     /**
      * 登录验证流程

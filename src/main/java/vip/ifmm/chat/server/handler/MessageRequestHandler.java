@@ -1,6 +1,7 @@
 package vip.ifmm.chat.server.handler;
 
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import vip.ifmm.chat.protocol.request.MessageRequest;
@@ -16,7 +17,14 @@ import java.util.Date;
  * <p>email: mackyhuang@163.com <p>
  * <p>date: 2019/5/7 </p>
  */
+@ChannelHandler.Sharable
 public class MessageRequestHandler extends SimpleChannelInboundHandler<MessageRequest> {
+
+    public static final MessageRequestHandler INSTANCE = new MessageRequestHandler();
+
+    private MessageRequestHandler() {
+    }
+
     /**
      * 消息处理流程
      * @param messageRequest 消息请求包

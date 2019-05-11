@@ -1,6 +1,7 @@
 package vip.ifmm.chat.server.handler;
 
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
@@ -19,7 +20,15 @@ import java.util.List;
  * <p>email: mackyhuang@163.com <p>
  * <p>date: 2019/5/9 </p>
  */
+@ChannelHandler.Sharable
 public class GroupRequestHandler extends SimpleChannelInboundHandler<GroupRequest> {
+
+    public static final GroupRequestHandler INSTANCE = new GroupRequestHandler();
+
+    private GroupRequestHandler(){
+
+    }
+
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, GroupRequest groupRequest) throws Exception {
         //获取群组建立请求包里面的用户id队列

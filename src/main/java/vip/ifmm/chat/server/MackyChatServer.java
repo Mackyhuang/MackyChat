@@ -9,6 +9,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.FutureListener;
+import vip.ifmm.chat.protocol.packageProcess.PackageCoder;
 import vip.ifmm.chat.protocol.packageProcess.PackageDecoder;
 import vip.ifmm.chat.protocol.packageProcess.PackageEncoder;
 import vip.ifmm.chat.protocol.packageProcess.Spliter;
@@ -43,18 +44,17 @@ public class MackyChatServer {
                 .childHandler(new ChannelInitializer<NioSocketChannel>() {
                     @Override
                     protected void initChannel(NioSocketChannel channel) throws Exception {
+                        //拆包器
                         channel.pipeline().addLast(new Spliter());
-                        channel.pipeline().addLast(new PackageDecoder());
-                        channel.pipeline().addLast(new LoginRequestHandler());
-                        channel.pipeline().addLast(new VerifyHandler());
-                        channel.pipeline().addLast(new MessageRequestHandler());
-                        channel.pipeline().addLast(new ShareMessageRequestHandler());
-                        channel.pipeline().addLast(new GroupRequestHandler());
-                        channel.pipeline().addLast(new JoinRequestHandler());
-                        channel.pipeline().addLast(new QuitRequestHandler());
-                        channel.pipeline().addLast(new ListRequestHandler());
-                        channel.pipeline().addLast(new LogoutRequestHandler());
-                        channel.pipeline().addLast(new PackageEncoder());
+                        //编解码
+                        channel.pipeline().addLast(PackageCoder.CODER);
+                        //登录
+                        channel.pipeline().addLast(LoginRequestHandler.INSTANCE);
+                        //验证登录
+                        channel.pipeline().addLast(VerifyHandler.INSTANCE);
+                        //处理主路由器
+                        channel.pipeline().addLast(MainRequestHandler.INSTANCE);
+
                     }
                 });
         bindPort(bootstrap);

@@ -1,5 +1,6 @@
 package vip.ifmm.chat.server.handler;
 
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import vip.ifmm.chat.server.util.LoginCheck;
@@ -12,7 +13,13 @@ import vip.ifmm.chat.server.util.SessionCheck;
  * <p>email: mackyhuang@163.com <p>
  * <p>date: 2019/5/7 </p>
  */
+@ChannelHandler.Sharable
 public class VerifyHandler extends ChannelInboundHandlerAdapter {
+
+    public static final VerifyHandler INSTANCE = new VerifyHandler();
+
+    private VerifyHandler() {
+    }
 
     /**
      * 验证流程

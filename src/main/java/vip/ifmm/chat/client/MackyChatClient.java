@@ -50,16 +50,27 @@ public class MackyChatClient {
                 .handler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     protected void initChannel(SocketChannel channel) throws Exception {
+                        //拆包器
                         channel.pipeline().addLast(new Spliter());
+                        //解码器
                         channel.pipeline().addLast(new PackageDecoder());
+                        //登录
                         channel.pipeline().addLast(new LoginResponseHandler());
+                        //私聊
                         channel.pipeline().addLast(new MessageResponseHandler());
+                        //群聊
                         channel.pipeline().addLast(new ShareMessageResponseHandler());
+                        //创建群组
                         channel.pipeline().addLast(new GroupResponseHandler());
+                        //加入群聊
                         channel.pipeline().addLast(new JoinResponseHandler());
+                        //退出群聊
                         channel.pipeline().addLast(new QuitResponseHandler());
+                        //查群组成员
                         channel.pipeline().addLast(new ListResponseHandler());
+                        //注销
                         channel.pipeline().addLast(new LogoutResponseHandler());
+                        //编码器
                         channel.pipeline().addLast(new PackageEncoder());
                     }
                 });
