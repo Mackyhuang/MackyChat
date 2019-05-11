@@ -44,6 +44,6 @@ public class ListRequestHandler extends SimpleChannelInboundHandler<ListRequest>
         listResponse.setGroupId(groupId);
         listResponse.setSessionList(sessionList);
 
-        channelHandlerContext.channel().writeAndFlush(listResponse);
+        channelHandlerContext.writeAndFlush(listResponse);
     }
 }

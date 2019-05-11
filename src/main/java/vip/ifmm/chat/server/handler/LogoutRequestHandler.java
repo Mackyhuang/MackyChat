@@ -27,7 +27,7 @@ public class LogoutRequestHandler extends SimpleChannelInboundHandler<LogoutRequ
         LogoutResponse logoutResponse = new LogoutResponse();
         logoutResponse.setSuccess(true);
 
-        channelHandlerContext.channel().writeAndFlush(logoutResponse);
+        channelHandlerContext.writeAndFlush(logoutResponse);
         System.out.println(String.format("用户 [%s] 已经注销！", username));
     }
 }

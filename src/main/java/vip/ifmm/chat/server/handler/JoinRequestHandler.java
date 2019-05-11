@@ -33,6 +33,6 @@ public class JoinRequestHandler extends SimpleChannelInboundHandler<JoinRequest>
         //写回响应
         joinResponse.setGroupId(groupId);
         joinResponse.setSuccess(true);
-        channelHandlerContext.channel().writeAndFlush(joinResponse);
+        channelHandlerContext.writeAndFlush(joinResponse);
     }
 }

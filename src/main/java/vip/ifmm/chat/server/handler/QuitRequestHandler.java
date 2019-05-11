@@ -32,6 +32,6 @@ public class QuitRequestHandler extends SimpleChannelInboundHandler<QuitRequest>
         quitResponse.setGroupId(groupId);
         quitResponse.setSuccess(true);
 
-        channelHandlerContext.channel().writeAndFlush(quitResponse);
+        channelHandlerContext.writeAndFlush(quitResponse);
     }
 }

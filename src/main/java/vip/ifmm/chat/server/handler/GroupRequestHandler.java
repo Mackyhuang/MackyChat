@@ -55,7 +55,7 @@ public class GroupRequestHandler extends SimpleChannelInboundHandler<GroupReques
         groupResponse.setSuccess(true);
         groupResponse.setUsernameList(usernameList);
 
-        channelHandlerContext.channel().writeAndFlush(groupResponse);
+        channelGroup.writeAndFlush(groupResponse);
 
         System.out.print("群创建成功，id 为[" + groupResponse.getGroupId() + "], ");
         System.out.println("群里面有：" + groupResponse.getUsernameList());

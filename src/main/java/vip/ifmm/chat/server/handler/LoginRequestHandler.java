@@ -52,7 +52,7 @@ public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReques
             System.out.println(new Date() + String.format(": %s登录失败", loginRequest.getUsername()));
         }
 
-        channelHandlerContext.channel().writeAndFlush(loginResponse);
+        channelHandlerContext.writeAndFlush(loginResponse);
     }
 
     /**
