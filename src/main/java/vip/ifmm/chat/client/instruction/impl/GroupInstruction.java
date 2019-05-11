@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 /**
+ * 创建群组的操作
  * @author: mackyhuang
  * <p>email: mackyhuang@163.com <p>
  * <p>date: 2019/5/9 </p>

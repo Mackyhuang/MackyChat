@@ -5,6 +5,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import vip.ifmm.chat.protocol.response.GroupResponse;
 
 /**
+ *
  * @author: mackyhuang
  * <p>email: mackyhuang@163.com <p>
  * <p>date: 2019/5/9 </p>

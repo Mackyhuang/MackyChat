@@ -15,7 +15,9 @@ public enum PackageCommandEnum {
     QUIT_REQUEST(11),
     QUIT_RESPONSE(12),
     LIST_REQUEST(13),
-    LIST_RESPONSE(14);
+    LIST_RESPONSE(14),
+    SHARE_MESSAGE_REQUEST(15),
+    SHARE_MESSAGE_RESPONSE(16);
 
     Byte code;
 
