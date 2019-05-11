@@ -50,6 +50,7 @@ public class MackyChatClient2 {
                         channel.pipeline().addLast(new PackageDecoder());
                         channel.pipeline().addLast(new LoginResponseHandler());
                         channel.pipeline().addLast(new MessageResponseHandler());
+                        channel.pipeline().addLast(new ShareMessageResponseHandler());
                         channel.pipeline().addLast(new GroupResponseHandler());
                         channel.pipeline().addLast(new JoinResponseHandler());
                         channel.pipeline().addLast(new QuitResponseHandler());

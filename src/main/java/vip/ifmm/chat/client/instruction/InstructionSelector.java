@@ -26,6 +26,7 @@ public class InstructionSelector implements CommonInstruction{
         instructionMap.put("join", new JoinInstruction());
         instructionMap.put("quit", new QuitInstruction());
         instructionMap.put("list", new ListInstruction());
+        instructionMap.put("share", new ShareMessageInstruction());
     }
 
     @Override

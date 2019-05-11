@@ -22,14 +22,6 @@ public class ShareMessageRequest extends Package {
         this.destGroupId = destGroupId;
     }
 
-    public String getGroupId() {
-        return destGroupId;
-    }
-
-    public void setGroupId(String groupId) {
-        this.destGroupId = groupId;
-    }
-
     public String getMessage() {
         return message;
     }

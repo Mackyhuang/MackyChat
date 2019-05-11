@@ -16,6 +16,7 @@ import vip.ifmm.chat.protocol.packageProcess.PackageEncoder;
 import vip.ifmm.chat.protocol.packageProcess.Spliter;
 import vip.ifmm.chat.protocol.request.LoginRequest;
 import vip.ifmm.chat.protocol.request.MessageRequest;
+import vip.ifmm.chat.server.handler.ShareMessageRequestHandler;
 import vip.ifmm.chat.server.util.LoginCheck;
 import vip.ifmm.chat.server.util.SessionCheck;
 
@@ -53,6 +54,7 @@ public class MackyChatClient {
                         channel.pipeline().addLast(new PackageDecoder());
                         channel.pipeline().addLast(new LoginResponseHandler());
                         channel.pipeline().addLast(new MessageResponseHandler());
+                        channel.pipeline().addLast(new ShareMessageResponseHandler());
                         channel.pipeline().addLast(new GroupResponseHandler());
                         channel.pipeline().addLast(new JoinResponseHandler());
                         channel.pipeline().addLast(new QuitResponseHandler());

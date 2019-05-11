@@ -48,6 +48,7 @@ public class MackyChatServer {
                         channel.pipeline().addLast(new LoginRequestHandler());
                         channel.pipeline().addLast(new VerifyHandler());
                         channel.pipeline().addLast(new MessageRequestHandler());
+                        channel.pipeline().addLast(new ShareMessageRequestHandler());
                         channel.pipeline().addLast(new GroupRequestHandler());
                         channel.pipeline().addLast(new JoinRequestHandler());
                         channel.pipeline().addLast(new QuitRequestHandler());
