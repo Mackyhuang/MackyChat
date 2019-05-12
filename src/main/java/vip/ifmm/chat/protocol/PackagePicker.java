@@ -54,6 +54,8 @@ public class PackagePicker {
         packageStore.put(PackageCommandEnum.LIST_RESPONSE.getCode(), ListResponse.class);
         packageStore.put(PackageCommandEnum.SHARE_MESSAGE_REQUEST.getCode(), ShareMessageRequest.class);
         packageStore.put(PackageCommandEnum.SHARE_MESSAGE_RESPONSE.getCode(), ShareMessageResponse.class);
+        packageStore.put(PackageCommandEnum.HEARTBEAT_REQUEST.getCode(), HeartbeatRequest.class);
+        packageStore.put(PackageCommandEnum.HEARTBEAT_RESPONSE.getCode(), HeartbeatResponse.class);
 
         Serializer jsonSerializer = new JsonSerializer();
         serializerStore.put(SerializationAlgorithmEnum.JSON_SERIALIZER.getCode(), jsonSerializer);

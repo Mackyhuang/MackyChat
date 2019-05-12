@@ -11,6 +11,7 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import vip.ifmm.chat.client.handler.*;
 import vip.ifmm.chat.client.instruction.InstructionSelector;
 import vip.ifmm.chat.client.instruction.impl.LoginInstruction;
+import vip.ifmm.chat.commonHandler.IdleCheckHandler;
 import vip.ifmm.chat.protocol.packageProcess.PackageDecoder;
 import vip.ifmm.chat.protocol.packageProcess.PackageEncoder;
 import vip.ifmm.chat.protocol.packageProcess.Spliter;
@@ -26,6 +27,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * 客户端
+ *
  * @author: mackyhuang
  * <p>email: mackyhuang@163.com <p>
  * <p>date: 2019/5/7 </p>
@@ -50,6 +52,8 @@ public class MackyChatClient {
                 .handler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     protected void initChannel(SocketChannel channel) throws Exception {
+                        //空闲检测
+                        channel.pipeline().addLast(new IdleCheckHandler());
                         //拆包器
                         channel.pipeline().addLast(new Spliter());
                         //解码器
@@ -72,6 +76,8 @@ public class MackyChatClient {
                         channel.pipeline().addLast(new LogoutResponseHandler());
                         //编码器
                         channel.pipeline().addLast(new PackageEncoder());
+                        // 定时发送心跳
+                        channel.pipeline().addLast(new HeartbeatScheduleHandler());
                     }
                 });
         connectServer(bootstrap, MAX_RETRY);
@@ -106,7 +112,7 @@ public class MackyChatClient {
             while (!Thread.interrupted()) {
                 if (!SessionCheck.checkLogin(channel)) {
                     loginInstruction.exec(scanner, channel);
-                }else {
+                } else {
                     instructionSelector.exec(scanner, channel);
                 }
             }

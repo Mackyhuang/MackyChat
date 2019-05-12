@@ -9,6 +9,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.FutureListener;
+import vip.ifmm.chat.commonHandler.IdleCheckHandler;
 import vip.ifmm.chat.protocol.packageProcess.PackageCoder;
 import vip.ifmm.chat.protocol.packageProcess.PackageDecoder;
 import vip.ifmm.chat.protocol.packageProcess.PackageEncoder;
@@ -44,12 +45,16 @@ public class MackyChatServer {
                 .childHandler(new ChannelInitializer<NioSocketChannel>() {
                     @Override
                     protected void initChannel(NioSocketChannel channel) throws Exception {
+                        //空闲检测
+                        channel.pipeline().addLast(new IdleCheckHandler());
                         //拆包器
                         channel.pipeline().addLast(new Spliter());
                         //编解码
                         channel.pipeline().addLast(PackageCoder.CODER);
                         //登录
                         channel.pipeline().addLast(LoginRequestHandler.INSTANCE);
+                        //给客户端回复心跳
+                        channel.pipeline().addLast(HeartbeatRequestHandler.INSTANSE);
                         //验证登录
                         channel.pipeline().addLast(VerifyHandler.INSTANCE);
                         //处理主路由器
