@@ -23,7 +23,7 @@ public class PackagePicker {
     //饿汉单例
     public final static PackagePicker PICKER = new PackagePicker();
 
-    //魔术
+    //魔数
     public final static Integer MAGIC_NUMBER = 0xaccababe;
 
     //协议包存储仓
