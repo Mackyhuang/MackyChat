@@ -7,6 +7,7 @@ import vip.ifmm.chat.protocol.request.*;
 import vip.ifmm.chat.protocol.response.*;
 import vip.ifmm.chat.serializer.Serializer;
 import vip.ifmm.chat.serializer.impl.JsonSerializer;
+import vip.ifmm.chat.serializer.impl.ProtostuffSerializer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -58,7 +59,9 @@ public class PackagePicker {
         packageStore.put(PackageCommandEnum.HEARTBEAT_RESPONSE.getCode(), HeartbeatResponse.class);
 
         Serializer jsonSerializer = new JsonSerializer();
+        ProtostuffSerializer protostuffSerializer = new ProtostuffSerializer();
         serializerStore.put(SerializationAlgorithmEnum.JSON_SERIALIZER.getCode(), jsonSerializer);
+        serializerStore.put(SerializationAlgorithmEnum.PROTOSTUFF_SERIALIZER.getCode(), protostuffSerializer);
     }
 
     /**

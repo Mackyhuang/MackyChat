@@ -16,9 +16,10 @@ public class JsonSerializer implements Serializer {
     }
 
     @Override
-    public byte[] serialize(Object object) {
+    public <T> byte[] serialize(T object) {
         return JSON.toJSONBytes(object);
     }
+
 
     @Override
     public <T> T deserialize(Class<T> clazz, byte[] bytes) {

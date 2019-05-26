@@ -7,7 +7,8 @@ package vip.ifmm.chat.enums;
  */
 public enum  SerializationAlgorithmEnum {
 
-    JSON_SERIALIZER(1);
+    JSON_SERIALIZER(1),
+    PROTOSTUFF_SERIALIZER(2);
 
     Byte code;
 

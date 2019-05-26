@@ -1,6 +1,7 @@
 package vip.ifmm.chat.serializer;
 
 import vip.ifmm.chat.serializer.impl.JsonSerializer;
+import vip.ifmm.chat.serializer.impl.ProtostuffSerializer;
 
 /**
  * @author: mackyhuang
@@ -9,7 +10,7 @@ import vip.ifmm.chat.serializer.impl.JsonSerializer;
  */
 public interface Serializer {
 
-    Serializer DEFAULT = new JsonSerializer();
+    Serializer DEFAULT = new ProtostuffSerializer();
 
     /**
      * 获取当前序列化器的代号
@@ -22,7 +23,7 @@ public interface Serializer {
      * @param object 需要被序列号的对象
      * @return 序列化的结果——字节数组
      */
-    byte[] serialize(Object object);
+    <T> byte[] serialize(T object);
 
     /**
      * 反序列化方法
